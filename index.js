@@ -6,13 +6,11 @@ const Task = function(){
         document.querySelector('#texto').value = '';
 
         /** Comprobamos si el navegador es compatible con LocalStorage */
-        console.log("antes");
-        
         if (typeof(Storage) !== "undefined") {
-            console.log("dentro");
             /** traemos los datos del LocalStorage */
             let tsks = JSON.parse(localStorage.getItem("tasks"));
-            tasks = tsks;
+            if(tsks != null)
+                tasks = tsks;
             if(tasks.length >= 1)
                 this.draw();
         }
