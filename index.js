@@ -4,6 +4,18 @@ const Task = function(){
     let domTasks = document.querySelector('.tasks');
     this.init = () =>{
         document.querySelector('#texto').value = '';
+
+        /** Comprobamos si el navegador es compatible con LocalStorage */
+        console.log("antes");
+        
+        if (typeof(Storage) !== "undefined") {
+            console.log("dentro");
+            /** traemos los datos del LocalStorage */
+            let tsks = JSON.parse(localStorage.getItem("tasks"));
+            tasks = tsks;
+            if(tasks.length >= 1)
+                this.draw();
+        }
     }
     this.draw = (clas = '')=>{
         domTasks.innerHTML = '';
@@ -61,18 +73,25 @@ const Task = function(){
         this.draw();
         document.querySelector('#texto').value = '';
         document.querySelector('#texto').focus()
+        this.saveLocalStorage()
     }
     this.eliminar = (id)=>{
         console.log(id);
         tasks.splice(id, 1);
         this.draw();
-        
+        this.saveLocalStorage()
     }
     this.checker = (id) => {
         tasks[id].st = tasks[id].st == 0? 1 : 0;
+        this.saveLocalStorage()
     }
     this.filtrar = (clas) => {
         this.draw(clas);
+    }
+    this.saveLocalStorage = () => {
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
     }
 }
 
