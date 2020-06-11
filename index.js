@@ -64,17 +64,14 @@ const Task = function(){
         focus()
     }
     this.newTask = (box)=>{
-        // idtask = tasks.length + 1;
-        // console.log(idtask);
         tasks.push({nombre: box, st: 0});
-        // console.log(tasks.length, tasks);
+
         this.draw();
         document.querySelector('#texto').value = '';
         document.querySelector('#texto').focus()
         this.saveLocalStorage()
     }
     this.eliminar = (id)=>{
-        console.log(id);
         tasks.splice(id, 1);
         this.draw();
         this.saveLocalStorage()
@@ -125,7 +122,6 @@ document.querySelectorAll('.filtos div').forEach( filtro => {
         quitaCheck();
         fil = fil.target
         clas = fil.classList[0]
-        console.log(clas);
         
         fil.classList.add('checked')
         task.filtrar(clas);
